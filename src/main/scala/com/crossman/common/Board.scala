@@ -60,6 +60,35 @@ sealed trait Board {
     fn(x+1,y+1)
   }
 
+  def get(x: Int, y: Int): Int = apply(x,y).get
+  def getOrElse(x: Int, y: Int, default: => Int): Int = apply(x,y).getOrElse(default)
+
+  def println(): Unit = {
+    indices.foreach(x => {
+      val ys = row(x)
+      ys.indices.foreach(y => {
+        System.out.print(ys(y))
+      })
+      System.out.println()
+    })
+    System.out.println()
+  }
+
+  def println(mx: Int, my: Int): Unit = {
+    (0 to mx).foreach(x => {
+      val ys = row(x)
+      (0 to my).foreach(y => {
+        if (ys(y) == 1) {
+          System.out.print('#')
+        } else {
+          System.out.print(' ')
+        }
+      })
+      System.out.println()
+    })
+    System.out.println()
+  }
+
   def apply(x: Int, y:Int): Option[Int]
   def indices: Iterable[Int]
   def row(x: Int): List[Int]
